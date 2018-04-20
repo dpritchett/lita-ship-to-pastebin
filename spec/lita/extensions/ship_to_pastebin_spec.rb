@@ -9,10 +9,8 @@ describe Lita::Extensions::ShipToPastebin, lita: true do
     expect(actual).to eq canary
   end
 
-  it 'does a barrel roll' do
-    canary = 'idk'
-    actual = subject.do_a_barrel_roll
-
-    expect(1).to eq 2
+  it 'saves text to pastebin' do
+    actual = subject.save_to_pastebin 'hey john', title: 'hey there john'
+    expect(actual).to match /https:\/\/pastebin/
   end
 end
