@@ -9,10 +9,6 @@ module Lita
 
       PasteBinError = Class.new(StandardError)
 
-      def hi(name)
-        name
-      end
-
       def save_to_pastebin(message, title: "Lita's Wall of Text")
         begin
           result = Faraday.post PASTEBIN_URL, {
