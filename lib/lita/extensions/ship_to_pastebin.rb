@@ -1,4 +1,3 @@
-require 'pry'
 require 'faraday'
 
 module Lita
@@ -22,7 +21,7 @@ module Lita
         end
 
         if !result.success? || result.body.include?('Bad API')
-          raise PasteBinError, result.body
+          raise PasteBinError, "Unable to deal with this Faraday response: [#{result.body}]"
         end
 
         result.body
