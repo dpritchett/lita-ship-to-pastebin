@@ -10,17 +10,25 @@ describe Lita::Handlers::Bigtext, lita_handler: true do
     response.stub(:body).and_return 'fake body'
   end
 
-  it 'should leverage the pastebin extension' do
-    expect(Faraday).to receive(:post)
-    expect(response).to receive(:success?)
-    expect(response).to receive(:body)
+  context 'managing walls of text' do
+    let(:longtext) { subject.longtext }
 
-    result = subject.longtext
+    it 'should generate a lot of words on demand' do
+      expect(longtext.length > 512).to be_truthy
+    end
 
-    # only one phrase, not 100 words
-    expect(result.split.length > 10).to be_falsey
+    it 'should leverage the pastebin extension' do
+      expect(Faraday).to receive(:post)
+      expect(response).to receive(:success?)
+      expect(response).to receive(:body)
 
-    # beware pastebin api rate limit
-    expect(result).to eq('fake body')
+      result = subject.snip_text(longtext)
+
+      # only one phrase, not 100 words
+      expect(result.split.length > 10).to be_falsey
+
+      # stubbing out Faraday calls to hide from Pastebin API limits
+      expect(result).to eq('fake body')
+    end
   end
 end

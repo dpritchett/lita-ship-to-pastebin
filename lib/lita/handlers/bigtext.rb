@@ -3,8 +3,6 @@ require 'lita-ship-to-pastebin'
 module Lita
   module Handlers
     class Bigtext < Handler
-      # insert handler code here
-
       Lita.register_handler(self)
 
       # START:snip
@@ -16,21 +14,17 @@ module Lita
             })
 
       def hide_bigtext(message)
-        binned = longtext
-
-        message.reply binned
+        message.reply longtext
       end
 
-      def fakeword
-        %w[able baker charlie delta echo alpha bravo hawaii].sample
+      def snip_text(text)
+        Lita::Extensions::ShipToPastebin.new.save_to_pastebin(text)
       end
 
       def longtext
-        words = (1..100).each.map do |n|
-          fakeword
+        (1..100).each.map do
+          %w[able baker charlie delta echo alpha bravo hawaii].sample
         end.join(' ')
-
-        Lita::Extensions::ShipToPastebin.new.save_to_pastebin(words)
       end
       # END:snip
     end
