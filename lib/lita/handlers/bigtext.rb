@@ -3,6 +3,8 @@ require 'lita-ship-to-pastebin'
 module Lita
   module Handlers
     class Bigtext < Handler
+      config :pastebin_api_key, default: 'd88582e90ba06b60569dc55ab5b678ce'
+
       Lita.register_handler(self)
 
       # START:snip
@@ -18,7 +20,7 @@ module Lita
       end
 
       def snip_text(text)
-        Lita::Extensions::ShipToPastebin.new.save_to_pastebin(text)
+        Lita::Extensions::ShipToPastebin.new.save_to_pastebin(text, api_key: config.pastebin_api_key)
       end
 
       def longtext

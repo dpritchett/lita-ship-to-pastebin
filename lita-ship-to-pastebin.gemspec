@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = 'lita-ship-to-pastebin'
-  spec.version       = '0.1.4'
+  spec.version       = '0.1.5'
   spec.authors       = ['Daniel J. Pritchett']
   spec.email         = ['dpritchett@gmail.com']
   spec.description   = 'Expose helper method to pastebin-ify any input text'
