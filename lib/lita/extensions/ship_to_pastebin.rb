@@ -15,6 +15,7 @@ module Lita
             api_dev_key: api_key,
             api_paste_name: title,
             api_paste_code: message,
+            api_paste_expire_date: '1D', # delete after a day
             api_option: 'paste'
           }
         rescue Faraday::Error => err
