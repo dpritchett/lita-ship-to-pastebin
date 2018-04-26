@@ -13,17 +13,21 @@ require 'webmock/rspec'
 def stub_pastebin_calls!
   stub_request(:post, 'https://pastebin.com/api/api_post.php')
     .with(body: {
-    'api_dev_key' => /[a-f0-9]+/,
-    'api_option' => 'paste',
-    'api_paste_expire_date' => '1D',
-    'api_paste_code' => /\W+/,
-    'api_paste_name' => /\W+/ },
-    headers: {
-      'Accept' => '*/*',
-      'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Content-Type' => 'application/x-www-form-urlencoded',
-      'User-Agent' => 'Faraday v0.15.0'
-    })
-      .to_return(status: 200, body: 'https://pastebin.com/6ig4DLUQ', headers: {})
+      'api_dev_key' => /[a-f0-9]+/,
+      'api_option' => 'paste',
+      'api_paste_expire_date' => '1D',
+      'api_paste_code' => /\W+/,
+      'api_paste_name' => /\W+/ },
+      headers: {
+        'Accept' => '*/*',
+        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+        'Content-Type' => 'application/x-www-form-urlencoded',
+        'User-Agent' => 'Faraday v0.15.0'
+      })
+    .to_return(
+      status: 200,
+      body: 'https://pastebin.com/6ig4DLUQ',
+      headers: {}
+    )
 end
 # START:stub_request

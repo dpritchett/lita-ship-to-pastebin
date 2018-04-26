@@ -16,11 +16,14 @@ module Lita
             })
 
       def hide_bigtext(message)
-        message.reply longtext
+        too_long = longtext
+        url_placeholder = snip_text too_long
+        message.reply url_placeholder
       end
 
       def snip_text(text)
-        Lita::Extensions::ShipToPastebin.new.save_to_pastebin(text, api_key: config.pastebin_api_key)
+        Lita::Extensions::ShipToPastebin.new.
+          save_to_pastebin(text, api_key: config.pastebin_api_key)
       end
 
       def longtext

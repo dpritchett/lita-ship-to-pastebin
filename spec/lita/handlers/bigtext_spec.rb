@@ -20,7 +20,16 @@ describe Lita::Handlers::Bigtext, lita_handler: true do
       expect(result.split.length > 10).to be_falsey
 
       # stubbing out Faraday calls to hide from Pastebin API limits
-      expect(result).to include('https://pastebin.com/')
+      expect(result).to(
+        match(%r{^https:\/\/pastebin\.com\/[a-zA-Z0-9]+})
+      )
+    end
+
+    it 'should use pastebin extension when responding to users' do
+      send_message 'Lita bigtext'
+      expect(replies.last).to(
+        match(%r{^https:\/\/pastebin\.com\/[a-zA-Z0-9]+})
+      )
     end
   end
 end

@@ -9,7 +9,8 @@ module Lita
 
       PasteBinError = Class.new(StandardError)
 
-      def save_to_pastebin(message, title: "Lita's Wall of Text", api_key: API_KEY_DEFAULT )
+      def save_to_pastebin(message, title: "Lita's Wall of Text",
+                           api_key: API_KEY_DEFAULT )
         begin
           result = Faraday.post PASTEBIN_URL, {
             api_dev_key: api_key,
@@ -23,7 +24,8 @@ module Lita
         end
 
         if !result.success? || result.body.include?('Bad API')
-          raise PasteBinError, "Unable to deal with this Faraday response: [#{result.body}]"
+          raise PasteBinError,
+            "Unable to deal with this Faraday response: [#{result.body}]"
         end
 
         result.body
